@@ -1,0 +1,205 @@
+<html>
+	<head>
+		<title>Form</title>
+		<script type="text/javascript">
+			function validate(){
+				var name = document.getElementById("name");
+				var email = document.getElementById("email");
+				var gender_m = document.getElementById("gender-m");
+				var gender_f = document.getElementById("gender-f");
+				var gender_o = document.getElementById("gender-o");
+				var dobday = document.getElementById("dob-day");
+				var dobmonth = document.getElementById("dob-month");
+				var dobyear = document.getElementById("dob-year");
+				var bloodgroup = document.getElementById("blood-group");
+				var degree_ssc = document.getElementById("degree-ssc");
+				var degree_hsc = document.getElementById("degree-hsc");
+				var degree_bsc = document.getElementById("degree-bsc");
+				var degree_msc = document.getElementById("degree-msc");
+				
+				validate_name(name.value);
+				validate_email(email.value);
+				validate_gender(gender_m, gender_f, gender_o);
+				validate_dob(dobday.value, dobmonth.value, dobyear.value);
+				validate_degree(degree_ssc,degree_hsc,degree_bsc,degree_msc);
+				
+			}
+			
+			function validate_name(name){
+				if(name == ""){
+					alert("Name cannot be empty.");
+					validation_failed();
+				}
+				else{
+					var parts = name.split(" ");
+
+					if(parts.length != 2){
+						window.alert("Name should be consist of two words.");
+						validation_failed();
+					}
+					else{
+						for(var i=0; i < name.length; i++){
+							if(!((name.charAt(i) >= 'a' && name.charAt(i) <= 'z') || (name.charAt(i) >= 'A' && name.charAt(i) <= 'Z') || name.charAt(i) == '.' || name.charAt(i) == '-' || name.charAt(i) == ' ')){
+								window.alert("name should contain only a-z, A-Z, dot, dash.");
+								validation_failed();
+							}
+						}
+						
+						if(!((name.charAt(0) >= 'a' && name.charAt(0) <= 'z') || (name.charAt(0) >= 'A' && name.charAt(0) <= 'Z'))){
+							window.alert("name should start with a letter.");
+							validation_failed();
+						}
+					}
+				}
+			}
+			
+			function validate_email(email){
+				if(email == ""){
+					window.alert("Email cannot be empty.");
+					validation_failed();
+				}
+				else{
+					var parts = email.split("@");
+					if(parts.length != 2){
+						window.alert("Invalid Email Address");
+						validation_failed();
+					}
+					else{
+						var username = parts[0];
+						if(username.length < 1){
+							window.alert("Invalid Email Username");
+							validation_failed();
+						}
+						var host = parts[1].split('.');
+						if(host.length != 2){
+							window.alert("Invalid Email Host.");
+							validation_failed();
+						}
+						var hostname = host[0];
+						for(var i=0; i < hostname.length; i++){
+							if(!((hostname.charAt(i) >= 'a' && hostname.charAt(i) <= 'z') || (hostname.charAt(i) >= 'A' && hostname.charAt(i) <= 'Z'))){
+								window.alert("email hostname should contain only letters.");
+								validation_failed();
+							}
+						}
+						var hostdomain = host[1];
+						for(var i=0; i < hostdomain.length; i++){
+							if(!((hostdomain.charAt(i) >= 'a' && hostdomain.charAt(i) <= 'z') || (hostdomain.charAt(i) >= 'A' && hostdomain.charAt(i) <= 'Z'))){
+								window.alert("email domain should contain only letters.");
+								validation_failed();
+							}
+						}
+						
+					}
+				}
+			}
+			
+			function validate_gender(gender_m,gender_f,gender_o){
+				if(!(gender_m.checked || gender_f.checked || gender_o.checked)){
+					window.alert("Gender cannot be empty");
+					validation_failed();
+				}
+			}
+			
+			function validate_dob(dobday, dobmonth, dobyear){
+				if(!((dobday >= '01' && dobday <= '31') && (dobmonth >= '01' && dobmonth <= '12') && (dobyear >= '1900' && dobyear <= '2100'))) {
+					window.alert("Invalid Birthdate");
+					validation_failed();
+				}
+			}
+			
+			function validate_bloodgroup(){
+			
+			}
+			
+			function validate_degree(ssc,hsc,bsc,msc){
+				if(!(ssc.checked || hsc.checked || bsc.checked || msc.checked)){
+					window.alert("Degree: At least one option must be selected");
+					validation_failed();
+				}
+			}
+			
+			function validation_failed(){
+				var form = document.getElementsByTagName("form")[0];
+				form.onsubmit = function() {return false};
+			}
+		</script>
+	</head>
+	<body>
+	<form action="response.php">
+		<table border="1" width="35%" cellspacing="0" cellpadding="10">
+			<thead></thead>
+			
+			<tbody>
+				<tr>
+					<td colspan="3"><center><h1>PERSON PROFILE</h1></center></td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td><input type="text" name="namefield" id="name"></td>
+					<td>    </td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td><input type="text" name="emailfield" id="email"></td>
+					<td>    </td>
+				</tr>
+				<tr>
+					<td>Gender</td>
+					<td>
+						<input type="radio" name="gender"  id="gender-m" value="Male"/> Male
+						<input type="radio" name="gender"  id="gender-f" value="Female"/> Female
+						<input type="radio" name="gender"  id="gender-o" value="Other"/> Other
+					</td>
+					<td>    </td>
+				</tr>
+				<tr>
+					<td>Date Of Birth</td>
+					<td><input type="text" name="dobdate" id="dob-day" size="2"/> / <input type="text" name="dobmonth" id="dob-month" size="2"/> / <input type="text" name="dobyear" id="dob-year" size="4"/> (dd/mm/yyyy) </td> 
+					<td>    </td>	
+				</tr>
+				<tr>
+						<td>Blood Group</td>
+						<td>
+							<select name="bloodgroup" id="blood-group">
+								<option>A+</option>
+								<option>B+</option>
+								<option>AB+</option>
+								<option>O+</option>
+								<option>A-</option>
+								<option>B-</option>
+								<option>AB-</option>
+								<option>O-</option>
+							</select>
+						</td>
+						<td>    </td>
+				</tr>
+				<tr>
+						<td>Degree</td>
+						<td>
+							<input type="checkbox" name="checkdegree[]" id="degree-ssc" value="SSC"/>SSC
+							<input type="checkbox" name="checkdegree[]" id="degree-hsc" value="HSC"/>HSC
+							<input type="checkbox" name="checkdegree[]" id="degree-bsc" value="BSc"/>BSc
+							<input type="checkbox" name="checkdegree[]" id="degree-msc" value="MSc"/>MSc
+						</td>
+						<td>  </td>		
+				</tr>
+				<tr>
+						<td>Photo</td>
+						<td><input type="file" value="Select" name="photo"/></td>
+						<td>  </td>
+				</tr>
+				
+				<tr>
+					<td colspan ="3">
+						<input type="button" value="Reset" style="float:right">
+						<input type="submit" value="Submit" style="float:right" onclick="validate()">
+					</td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</form>	
+	</body>
+
+</html>
