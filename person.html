@@ -102,7 +102,7 @@
 			}
 			
 			function validate_dob(dobday, dobmonth, dobyear){
-				if(!((dobday >= '01' && dobday <= '31') && (dobmonth >= '01' && dobmonth <= '12') && (dobyear >= '1900' && dobyear <= '2100'))) {
+				if(!((dobday >= '1' && dobday <= '31') && (dobmonth >= '1' && dobmonth <= '12') && (dobyear >= '1900' && dobyear <= '2100'))) {
 					window.alert("Invalid Birthdate");
 					validation_failed();
 				}

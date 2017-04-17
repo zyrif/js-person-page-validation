@@ -72,7 +72,6 @@
 		echo "Email: $email";
 	}
 	
-	print_r($partdomaintrim);
 	//showEmail ends here
 	
 	echo "<br/>";
